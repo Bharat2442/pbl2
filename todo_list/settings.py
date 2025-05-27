@@ -11,10 +11,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 
 # ALLOWED HOSTS
-ALLOWED_HOSTS = ["web-production-3473.up.railway.app",
-    "127.0.0.1",
-    "localhost"]
-
+ALLOWED_HOSTS = config("ALLOWED_HOSTS").split(',')
 
 # APPLICATIONS
 INSTALLED_APPS = [
@@ -24,7 +21,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-     'base', 
+    'base',
 ]
 
 # MIDDLEWARE
@@ -38,7 +35,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'todo_list.urls'  # replace 'your_project' with your project name
+ROOT_URLCONF = 'todo_list.urls'
 
 TEMPLATES = [
     {
@@ -56,7 +53,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'todo_list.wsgi.application'  # replace 'your_project'
+WSGI_APPLICATION = 'todo_list.wsgi.application'
 
 # DATABASE CONFIGURATION
 DATABASES = {
@@ -65,18 +62,10 @@ DATABASES = {
 
 # PASSWORD VALIDATION
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
 # INTERNATIONALIZATION
@@ -89,13 +78,14 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-# DEFAULT PRIMARY KEY FIELD TYPE
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
+# LOGIN CONFIG
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'tasks'
 LOGOUT_REDIRECT_URL = 'login'
+
+# CSRF FOR DEPLOYMENT
 CSRF_TRUSTED_ORIGINS = [
     "https://web-production-3473.up.railway.app"
 ]
