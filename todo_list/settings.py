@@ -11,7 +11,9 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 
 # ALLOWED HOSTS
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["web-production-3473.up.railway.app",
+    "127.0.0.1",
+    "localhost"]
 
 
 # APPLICATIONS
@@ -94,3 +96,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'tasks'
 LOGOUT_REDIRECT_URL = 'login'
+CSRF_TRUSTED_ORIGINS = [
+    "https://web-production-3473.up.railway.app"
+]
