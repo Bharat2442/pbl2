@@ -3,17 +3,16 @@ from pathlib import Path
 from decouple import config
 import dj_database_url
 
-# BASE DIRECTORY
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECRET KEY AND DEBUG
+# Secret Key and Debug
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-# ALLOWED HOSTS
+# Allowed Hosts
 ALLOWED_HOSTS = config("ALLOWED_HOSTS").split(',')
 
-# APPLICATIONS
+# Installed Applications
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -24,7 +23,7 @@ INSTALLED_APPS = [
     'base',
 ]
 
-# MIDDLEWARE
+# Middleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -55,12 +54,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'todo_list.wsgi.application'
 
-# DATABASE CONFIGURATION
+# Database Configuration
 DATABASES = {
     'default': dj_database_url.parse(config('DATABASE_URL'))
 }
 
-# PASSWORD VALIDATION
+# Password Validation
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
@@ -68,24 +67,24 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-# INTERNATIONALIZATION
+# Internationalization
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# STATIC FILES
+# Static Files
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# LOGIN CONFIG
+# Login and Redirects
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'tasks'
 LOGOUT_REDIRECT_URL = 'login'
 
-# CSRF FOR DEPLOYMENT
+# CSRF for Production
 CSRF_TRUSTED_ORIGINS = [
     "https://web-production-3473.up.railway.app"
 ]
