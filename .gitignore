@@ -1,1 +1,15 @@
-".env" 
+# Ignore virtualenv
+env/
+
+# Byte-compiled / cache files
+__pycache__/
+*.py[cod]
+
+# Django stuff
+*.sqlite3
+/staticfiles/
+/media/
+
+# VSCode or PyCharm files
+.vscode/
+.idea/
