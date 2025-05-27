@@ -3,12 +3,10 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView as DjangoDeleteView, FormView
 from django.urls import reverse_lazy
-
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
-
 from django.views import View
 from django.db import transaction
 
@@ -37,6 +35,11 @@ class RegisterPage(FormView):
             login(self.request, user)
         return super().form_valid(form)
 
+    def form_invalid(self, form):
+        # Show errors in development or production logs
+        print("Form is invalid:", form.errors)
+        return self.render_to_response(self.get_context_data(form=form))
+
     def get(self, *args, **kwargs):
         if self.request.user.is_authenticated:
             return redirect('tasks')
@@ -54,8 +57,7 @@ class TaskList(LoginRequiredMixin, ListView):
 
         search_input = self.request.GET.get('search-area') or ''
         if search_input:
-            context['tasks'] = context['tasks'].filter(
-                title__icontains=search_input)
+            context['tasks'] = context['tasks'].filter(title__icontains=search_input)
 
         context['search_input'] = search_input
         return context
@@ -83,7 +85,7 @@ class TaskUpdate(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('tasks')
 
 
-class TaskDelete(LoginRequiredMixin, DjangoDeleteView):  
+class TaskDelete(LoginRequiredMixin, DjangoDeleteView):
     model = Task
     context_object_name = 'task'
     success_url = reverse_lazy('tasks')
