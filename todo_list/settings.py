@@ -60,7 +60,7 @@ WSGI_APPLICATION = 'todo_list.wsgi.application'  # replace 'your_project'
 
 # DATABASE CONFIGURATION
 DATABASES = {
-    'default': dj_database_url.parse(config('DATABASE_URL'))
+    'default': dj_database_url.parse(config('postgresql://${{PGUSER}}:${{POSTGRES_PASSWORD}}@${{RAILWAY_PRIVATE_DOMAIN}}:5432/${{PGDATABASE}}'))
 }
 
 # PASSWORD VALIDATION
